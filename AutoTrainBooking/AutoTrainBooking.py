@@ -92,4 +92,4 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=2
 if __name__ == "__main__":
     driver = open_brower()
     driver = login(driver, '2081265815', 'cltkgo1649!')
-    search_train(driver, "동탄", "부산", "20220115", "08") #기차 출발 시간은 반드시 짝수
+    search_train(driver, "동탄", "부산", "20221109", "08") #기차 출발 시간은 반드시 짝수
