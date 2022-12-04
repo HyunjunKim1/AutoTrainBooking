@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#test idle in vs studio , python
 import time
 from random import randint
 from selenium import webdriver
