@@ -20,7 +20,7 @@ def login(driver, login_id, login_psw):
     return driver
 
 
-def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=2, want_reserve=False):
+def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=3, want_reserve=False):
     is_booked = False # 예약 완료 되었는지 확인용
     cnt_refresh = 0 # 새로고침 회수 기록
 
@@ -49,7 +49,7 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=2
     time.sleep(1)
 
     while True:
-        for i in range(1, num_trains_to_check+1):
+        for i in range(2, num_trains_to_check):
             standard_seat = driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(7)").text
             reservation = driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(8)").text
 
@@ -75,7 +75,8 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=2
                     break
 
         if not is_booked:
-            time.sleep(randint(2, 4)) #2~4초 랜덤으로 기다리기
+            #time.sleep(randint(2, 4)) #2~4초 랜덤으로 기다리기
+            time.sleep(1) 
 
             # 다시 조회하기
             submit = driver.find_element(By.XPATH, "//input[@value='조회하기']")
@@ -92,4 +93,4 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=2
 if __name__ == "__main__":
     driver = open_brower()
     driver = login(driver, '2081265815', 'cltkgo1649!')
-    search_train(driver, "동탄", "부산", "20221109", "08") #기차 출발 시간은 반드시 짝수
+    search_train(driver, "동탄", "부산", "20221209", "12") #기차 출발 시간은 반드시 짝수
