@@ -7,7 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 def open_brower():
-    driver = webdriver.Chrome("C:\\Git\\AutoTrainBooking\\chromedriver.exe")
+    option = webdriver.ChromeOptions()
+    option.add_experimental_option("useAutomationExtension", False)
+    option.add_experimental_option("excludeSwitches", ['enable-automation'])
+    driver = webdriver.Chrome("C:\\Git\\AutoTrainBooking\\chromedriver.exe", chrome_options=option)
     return driver
 
 
@@ -93,5 +96,5 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=3
 
 if __name__ == "__main__":
     driver = open_brower()
-    driver = login(driver, '2081265815', 'cltkgo1649!')
-    search_train(driver, "동탄", "부산", "20221209", "12") #기차 출발 시간은 반드시 짝수
+    driver = login(driver, '2081265815', 'cltkgo1649!') # 'ID', 'PASSWORD'
+    search_train(driver, "동탄", "부산", "20230217", "18") #기차 출발 시간은 반드시 짝수
