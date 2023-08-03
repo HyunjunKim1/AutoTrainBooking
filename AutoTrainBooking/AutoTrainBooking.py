@@ -5,12 +5,14 @@ from random import randint
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.chrome.service import Service
 
 def open_brower():
-    option = webdriver.ChromeOptions()
-    option.add_experimental_option("useAutomationExtension", False)
-    option.add_experimental_option("excludeSwitches", ['enable-automation'])
-    driver = webdriver.Chrome("C:\\Git\\AutoTrainBooking\\chromedriver.exe", chrome_options=option)
+    service = Service(executable_path="C:\\Git\\AutoTrainBooking\\chromedriver.exe");
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("useAutomationExtension", False)
+    options.add_experimental_option("excludeSwitches", ['enable-automation'])
+    driver = webdriver.Chrome(service=service, options=options)
     return driver
 
 
@@ -53,7 +55,7 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=3
     time.sleep(1)
 
     while True:
-        for i in range(2, num_trains_to_check):
+        for i in range(1, num_trains_to_check):
             standard_seat = driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(7)").text
             reservation = driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(8)").text
 
@@ -96,5 +98,5 @@ def search_train(driver, dpt_stn, arr_stn, dpt_dt, dpt_tm, num_trains_to_check=3
 
 if __name__ == "__main__":
     driver = open_brower()
-    driver = login(driver, '2081265815', 'cltkgo1649!') # 'ID', 'PASSWORD'
-    search_train(driver, "동탄", "부산", "20230217", "18") #기차 출발 시간은 반드시 짝수
+    driver = login(driver, '') # 'ID', 'PASSWORD'
+    search_train(driver, "동탄", "부산", "20230804", "18") #기차 출발 시간은 반드시 짝수
